@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Feedback</title>
+    <style>
+      label {
+        float: left;
+        width: 150px;
+      }
+      #container {
+        width: 700px;
+        margin: auto;
+        background-color: beige;
+      }
+      main {
+        padding: 50px;
+      }
+      .error {
+        color: red;
+        display: none;
+      }
+
+      table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+        font-size: 12px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+      }
+
+      .size-details-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        height: 85px;
+      }
+
+      #sizeOptions {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 20px;
+      }
+
+      #details {
+        display: none;
+        vertical-align: top;
+        height: 85px;
+      }
+
+      #commentsError {
+        display: none;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <main>
+        <h2>Feedback</h2>
+        <h3>Love something? Hate something? Let us know!</h3>
+        Note: Fields marked with an asterisk(*) are mandatory
+        <br /><br />
+        <form method="post" id="myForm" novalidate>
+          <label>Title*:</label>
+          <input
+            type="radio"
+            name="title"
+            id="miss"
+            value="miss"
+            required="required"
+          />Miss
+          <input
+            type="radio"
+            name="title"
+            id="mr"
+            value="mr"
+            required="required"
+          />Mr.
+          <input
+            type="radio"
+            name="title"
+            id="mrs"
+            value="mrs"
+            required="required"
+          />Mrs.
+          <span class="error" id="titleError">Please Select A Title.</span>
+          <br /><br />
+
+          <label for="firstName">First Name*:</label>
+          <input
+            type="text"
+            name="firstName"
+            id="firstName"
+            placeholder="First Name"
+          />
+          <span class="error" id="firstNameEmptyError"
+            >First Name is Required.</span
+          >
+          <span class="error" id="firstNameError"
+            >Please Enter A Valid First Name.</span
+          >
+          <br /><br />
+
+          <label for="lastName">Last Name*:</label>
+          <input
+            type="text"
+            name="lastName"
+            id="lastName"
+            placeholder="Last Name"
+          />
+          <span class="error" id="lastNameEmptyError"
+            >Last Name is Required.</span
+          >
+          <span class="error" id="lastNameError"
+            >Please Enter A Valid Last Name.</span
+          >
+          <br /><br />
+
+          <label for="emailId">Email Id*:</label>
+          <input
+            type="text"
+            name="emailId"
+            id="emailId"
+            placeholder="yourname@domain.com"
+          />
+          <span class="error" id="emailIdEmptyError"
+            >Email Address is Required.</span
+          >
+          <span class="error" id="emailIdError"
+            >Please Enter a Valid Email Address.</span
+          >
+          <br /><br />
+
+          <label for="phoneNumber">Phone Number*:</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            id="phoneNumber"
+            placeholder="xxx-xxx-xxxx"
+          />
+          <span class="error" id="phoneNumberEmptyError"
+            >Phone Number is Required.</span
+          >
+          <span class="error" id="phoneNumberError"
+            >Please Enter a Valid Phone Number (xxx-xxx-xxxx).</span
+          >
+          <br /><br />
+
+          <label for="streetAddr1">Street Address 1*:</label>
+          <input
+            type="text"
+            name="streetAddr1"
+            id="streetAddr1"
+            placeholder="123 Main St"
+          />
+          <span class="error" id="streetAddr1EmptyError"
+            >Street Address is Required.</span
+          >
+          <span class="error" id="streetAddr1Error"
+            >Please Enter a Valid Street Address.</span
+          >
+          <br /><br />
+
+          <label for="streetAddr2">Street Address 2:</label>
+          <input
+            type="text"
+            name="streetAddr2"
+            id="streetAddr2"
+            placeholder="Apartment or Suite"
+          />
+          <br /><br />
+
+          <label for="city">City*:</label>
+          <input type="text" name="city" id="city" placeholder="City" />
+          <span class="error" id="cityEmptyError">City is Required.</span>
+          <span class="error" id="cityError">Please Enter a Valid City.</span>
+          <br /><br />
+
+          <label for="state">State*:</label>
+          <input type="text" name="state" id="state" placeholder="State" />
+          <span class="error" id="stateEmptyError">State is Required.</span>
+          <span class="error" id="stateError">Please Enter a Valid State.</span>
+          <br /><br />
+
+          <label for="zipcode">Zip Code*:</label>
+          <input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" />
+          <span class="error" id="zipcodeEmptyError"
+            >Zip Code is Required.</span
+          >
+          <span class="error" id="zipcodeError"
+            >Please Enter a Valid Zip Code (5 - 6 digits).</span
+          >
+          <br /><br />
+
+          <label>Select a Stuff*:</label>
+          <select id="stuffSelection" onchange="handleStuffChange(event)">
+            <option value="">-- Select a Stuff --</option>
+            <option name="stuff" id="mocha" value="mocha">Mocha</option>
+            <option name="stuff" id="latte" value="latte">Latte</option>
+            <option name="stuff" id="americano" value="americano">
+              Americano
+            </option>
+            <option name="stuff" id="cappuccino" value="cappuccino">
+              Cappuccino
+            </option>
+            <option name="stuff" id="macchiato" value="macchiato">
+              Macchiato
+            </option>
+          </select>
+          <span class="error" id="stuffEmptyError">Please Select a Stuff</span>
+          <br /><br />
+
+          <div class="size-details-container">
+            <div id="sizeOptions"></div>
+            <textarea
+              name="text"
+              id="details"
+              placeholder="Drink details (if needed)"
+              rows="5"
+              cols="25"
+            ></textarea>
+          </div>
+          <br /><br />
+
+          <label for="comments">Comments*:</label>
+          <textarea
+            name="text"
+            id="comments"
+            placeholder="Your comments"
+            rows="5"
+            cols="25"
+          ></textarea>
+          <span class="error" id="commentsError"
+            >Please comment at least 5 words.</span
+          >
+          <br /><br />
+
+          <input type="Submit" id="submit" value="submit" disabled />
+          <input type="Reset" value="Reset" />
+          <br /><br />
+        </form>
+
+        <h3>Data Recored</h3>
+        <table id="submittedData">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Street Address 1</th>
+              <th>Street Address 2</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Zipcode</th>
+              <th>Stuff</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </main>
+    </div>
+
+    <script>
+      const myForm = document.getElementById("myForm");
+      const sizeOptionsContainer = document.getElementById("sizeOptions");
+      const detailsTextarea = document.getElementById("details");
+      const submitButton = document.getElementById("submit");
+      const commentsField = document.getElementById("comments");
+      const commentsError = document.getElementById("commentsError");
+      const tableBody = document.querySelector("#submittedData tbody");
+      const stuffEmptyError = document.getElementById("stuffEmptyError");
+
+      const regExName = /^[a-zA-Z]+$/;
+      const regExEmail = /^[\w-\.]+@northeastern\.edu$/;
+      const regExPhone = /\d{3}-?\d{3}-\d{4}$/;
+      const regExZipcode = /^\d{5}(-\d{4})?$/;
+      const regExAddress = /^[a-zA-Z0-9\s,.#-]+$/;
+      const regExCityState = /^[a-zA-Z\s]+$/;
+
+      myForm.firstName.addEventListener("blur", () =>
+        validateField("firstName", regExName)
+      );
+      myForm.lastName.addEventListener("blur", () =>
+        validateField("lastName", regExName)
+      );
+      myForm.emailId.addEventListener("blur", () =>
+        validateField("emailId", regExEmail)
+      );
+      myForm.phoneNumber.addEventListener("blur", () =>
+        validateField("phoneNumber", regExPhone)
+      );
+      myForm.streetAddr1.addEventListener("blur", () =>
+        validateField("streetAddr1", regExAddress)
+      );
+      myForm.city.addEventListener("blur", () =>
+        validateField("city", regExCityState)
+      );
+      myForm.state.addEventListener("blur", () =>
+        validateField("state", regExCityState)
+      );
+      myForm.zipcode.addEventListener("blur", () =>
+        validateField("zipcode", regExZipcode)
+      );
+
+      myForm.title.forEach((radio) => {
+        radio.addEventListener("change", () => validateTitle());
+      });
+
+      commentsField.addEventListener("blur", validateComments);
+
+      myForm.stuffSelection.addEventListener("change", validateStuffSelection);
+
+      myForm.addEventListener("submit", handleSubmit);
+
+      myForm.addEventListener("reset", resetForm);
+
+      myForm.addEventListener("input", enableSubmitButton);
+
+      function validateField(field, regex) {
+        const fieldValue = myForm[field].value.trim();
+        const emptyError = document.getElementById(`${field}EmptyError`);
+        const formatError = document.getElementById(`${field}Error`);
+
+        if (!fieldValue) {
+          emptyError.style.display = "inline"; // Show empty error
+          formatError.style.display = "none"; // Hide format error
+        } else if (!regex.test(fieldValue)) {
+          emptyError.style.display = "none"; // Hide empty error
+          formatError.style.display = "inline"; // Show format error
+        } else {
+          emptyError.style.display = "none"; // Hide empty error
+          formatError.style.display = "none"; // Hide format error
+        }
+      }
+
+      function validateStuffSelection() {
+        const stuffError = document.getElementById("stuffEmptyError");
+        if (!myForm.stuffSelection.value) {
+          stuffError.style.display = "inline";
+          sizeOptionsContainer.innerHTML = "";
+          detailsTextarea.style.display = "none";
+        } else {
+          stuffError.style.display = "none";
+        }
+      }
+
+      function validateTitle() {
+        const titleError = document.getElementById("titleError");
+        if (!myForm.title.value) {
+          titleError.style.display = "inline";
+        } else {
+          titleError.style.display = "none";
+        }
+      }
+
+      function validateComments() {
+        const commentValue = commentsField.value.trim();
+        if (commentValue.split(/\s+/).length < 5) {
+          commentsError.style.display = "inline"; // Show comments error
+        } else {
+          commentsError.style.display = "none"; // Hide comments error
+        }
+      }
+
+      function enableSubmitButton() {
+        // Enable the submit button if all fields are valid
+        const isFormValid =
+          myForm.title.value &&
+          regExName.test(myForm.firstName.value) &&
+          regExName.test(myForm.lastName.value) &&
+          regExEmail.test(myForm.emailId.value) &&
+          regExPhone.test(myForm.phoneNumber.value) &&
+          regExAddress.test(myForm.streetAddr1.value) &&
+          regExCityState.test(myForm.city.value) &&
+          regExCityState.test(myForm.state.value) &&
+          regExZipcode.test(myForm.zipcode.value) &&
+          commentsField.value.trim().split(/\s+/).length >= 5 &&
+          myForm.stuffSelection.value;
+
+        submitButton.disabled = !isFormValid;
+      }
+
+      function handleSubmit(event) {
+        event.preventDefault(); // Prevent form submission from refreshing the page
+
+        const title = myForm.title.value;
+        const firstName = myForm.firstName.value;
+        const lastName = myForm.lastName.value;
+        const emailId = myForm.emailId.value;
+        const phoneNumber = myForm.phoneNumber.value;
+        const streetAddr1 = myForm.streetAddr1.value;
+        const streetAddr2 = myForm.streetAddr2.value;
+        const city = myForm.city.value;
+        const state = myForm.state.value;
+        const zipcode = myForm.zipcode.value;
+        const selectedStuff = myForm.stuffSelection.value;
+        const comments = commentsField.value;
+
+        // Insert a new row in the table
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+          <td>${title}</td>
+          <td>${firstName}</td>
+          <td>${lastName}</td>
+          <td>${emailId}</td>
+          <td>${phoneNumber}</td>
+          <td>${streetAddr1}</td>
+          <td>${streetAddr2}</td>
+          <td>${city}</td>
+          <td>${state}</td>
+          <td>${zipcode}</td>
+          <td>${selectedStuff}</td>
+          <td>${comments}</td>
+        `;
+
+        tableBody.appendChild(newRow);
+
+        // Clear the form after submission
+        myForm.reset();
+        submitButton.disabled = true; // Disable submit button until form is filled again
+        detailsTextarea.style.display = "none";
+        sizeOptionsContainer.innerHTML = "";
+        validateStuffSelection();
+
+        resetErrors();
+      }
+
+      function resetForm() {
+        myForm.reset();
+        submitButton.disabled = true; // Disable submit button until form is filled again
+        detailsTextarea.style.display = "none";
+        sizeOptionsContainer.innerHTML = "";
+        validateStuffSelection();
+
+        resetErrors();
+      }
+
+      function resetErrors() {
+        const errorElements = document.querySelectorAll(".error");
+        errorElements.forEach((error) => {
+          error.style.display = "none"; // Hide all error messages on reset
+        });
+      }
+
+      function handleStuffChange(e) {
+        const selectedStuff = e.target.value;
+        let options = [];
+
+        sizeOptionsContainer.innerHTML = "";
+        detailsTextarea.style.display = "none";
+
+        if (selectedStuff === "mocha") {
+          options = [
+            "Short (200 calories)",
+            "Tall (290 calories)",
+            "Grande (370 calories)",
+            "Venti (450 calories)",
+          ];
+        } else if (selectedStuff === "latte") {
+          options = [
+            "Short (100 calories)",
+            "Tall (150 calories)",
+            "Grande (190 calories)",
+            "Venti (250 calories)",
+          ];
+        } else if (selectedStuff === "americano") {
+          options = [
+            "Short (5 calories)",
+            "Tall (10 calories)",
+            "Grande (15 calories)",
+            "Venti (20 calories)",
+          ];
+        } else if (selectedStuff === "cappuccino") {
+          options = [
+            "Short (70 calories)",
+            "Tall (100 calories)",
+            "Grande (140 calories)",
+            "Venti (200 calories)",
+          ];
+        } else if (selectedStuff === "macchiato") {
+          options = [
+            "Short (120 calories)",
+            "Tall (190 calories)",
+            "Grande (250 calories)",
+            "Venti (310 calories)",
+          ];
+        }
+
+        options.forEach((option, index) => {
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = `option-${index}`;
+          checkbox.name = "size";
+          checkbox.value = option;
+
+          checkbox.addEventListener("change", handleCheckboxChange);
+
+          sizeOptionsContainer.appendChild(checkbox);
+          sizeOptionsContainer.appendChild(document.createTextNode(option));
+          sizeOptionsContainer.appendChild(document.createElement("br"));
+        });
+      }
+
+      function handleCheckboxChange() {
+        const anyChecked =
+          Array.from(document.querySelectorAll('input[name="size"]:checked'))
+            .length > 0;
+
+        if (anyChecked) {
+          detailsTextarea.style.display = "inline-block";
+        } else {
+          detailsTextarea.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
